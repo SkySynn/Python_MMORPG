@@ -40,17 +40,13 @@ class TextBox:
             if self.actif:
                 if event.key == pygame.K_BACKSPACE:
                     self.texte = self.texte[:-1]
-                elif event.key == pygame.K_RETURN:
-                    # Ignorer la touche Entrée pour éviter de valider la connexion
-                    pass
                 else:
-                    # Convertir la touche en caractère et l'ajouter au texte
                     self.texte += event.unicode
 
     def afficher(self):
         couleur = self.couleur_active if self.actif else self.couleur_inactive
         pygame.draw.rect(screen, couleur, self.rect, 2)
-        surface = font.render(self.texte, True, noir)
+        surface = font.render(self.texte, True, blanc)  # <--  Couleur du texte en blanc
         screen.blit(surface, (self.rect.x + 5, self.rect.y + 5))
 
 # Créer les zones de texte
