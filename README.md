@@ -2,9 +2,6 @@
 
 this GIT is an MMORPG developed in Python.
 
-## Description
-
-[Brief description of the game. For example: Dive into a fantastical world filled with magic and adventure. Explore dungeons, battle monsters, and create your own legend.]
 
 ## Features
 
