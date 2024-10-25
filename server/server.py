@@ -56,7 +56,7 @@ def gérer_client(client_socket, addr):
                     print(f"[ERREUR] Erreur lors de l'inscription : {e}")
                     client_socket.send("register_failed".encode())  # Envoyer un message d'erreur au client
 
-            else:  # Traitement des positions
+            else:  
                 try:
                     x, y = map(int, data.split(','))
                     clients[addr]['x'] = x
