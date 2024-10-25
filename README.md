@@ -24,11 +24,12 @@ this GIT is an MMORPG developed in Python.
 
 ## How to Play
 
-[Instructions for playing the game. For example:]
+Instructions for playing the game:
 
 * Use the ZQSD keys to move.
 * Click to attack.
 * Press E to interact with NPCs.
+* more soon
 
 ## Contributing
 
