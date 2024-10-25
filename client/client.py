@@ -46,7 +46,7 @@ class TextBox:
     def afficher(self):
         couleur = self.couleur_active if self.actif else self.couleur_inactive
         pygame.draw.rect(screen, couleur, self.rect, 2)
-        surface = font.render(self.texte, True, blanc)  
+        surface = font.render(self.texte, True, blanc)  # Couleur du texte en blanc
         screen.blit(surface, (self.rect.x + 5, self.rect.y + 5))
 
 # Classe pour les boutons
@@ -66,12 +66,12 @@ class Button:
         return self.rect.collidepoint(pos)
 
 # Créer les zones de texte
-username_box = TextBox(300, 130, 200, 30)  
-password_box = TextBox(300, 230, 200, 30) 
+username_box = TextBox(300, 130, 200, 30)  # Position modifiée
+password_box = TextBox(300, 230, 200, 30)  # Position modifiée
 
 # Créer les boutons
-bouton_connexion = Button(300, 330, 200, 40, gris, "Connexion") 
-bouton_inscription = Button(300, 380, 200, 40, gris, "Inscription") 
+bouton_connexion = Button(300, 330, 200, 40, gris, "Connexion")  # Position modifiée
+bouton_inscription = Button(300, 380, 200, 40, gris, "Inscription")  # Position modifiée
 
 # Position initiale du joueur
 x, y = 100, 100
@@ -79,7 +79,7 @@ vitesse = 5
 
 # Création du socket client
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client_socket.connect(('localhost', 12345))  
+client_socket.connect(('localhost', 12345))  # Remplacez 'localhost' par l'adresse IP du serveur si besoin
 
 # Dictionnaire pour stocker les positions des autres joueurs
 autres_joueurs = {}
@@ -114,7 +114,7 @@ pygame.key.start_text_input()
 
 # Boucle principale
 running = True
-logged_in = False 
+logged_in = False  # Variable pour savoir si le joueur est connecté
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -140,9 +140,9 @@ while running:
 
     # Afficher les zones de texte et les labels
     if not logged_in:
-        afficher_texte("Nom d'utilisateur:", blanc, 300, 100)  
+        afficher_texte("Nom d'utilisateur:", blanc, 300, 100)  # Position modifiée
         username_box.afficher()
-        afficher_texte("Mot de passe:", blanc, 300, 200) 
+        afficher_texte("Mot de passe:", blanc, 300, 200)  # Position modifiée
         password_box.afficher()
 
         # Afficher les boutons
@@ -153,13 +153,13 @@ while running:
     if logged_in:
         # Gestion des touches ZQSD
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_z]:  
+        if keys[pygame.K_z]:  # Z - Haut
             y -= vitesse
-        if keys[pygame.K_s]:  
+        if keys[pygame.K_s]:  # S - Bas
             y += vitesse
-        if keys[pygame.K_q]:  
+        if keys[pygame.K_q]:  # Q - Gauche
             x -= vitesse
-        if keys[pygame.K_d]:  
+        if keys[pygame.K_d]:  # D - Droite
             x += vitesse
 
         # Envoi de la position au serveur
