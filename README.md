@@ -5,12 +5,13 @@ this GIT is an MMORPG developed in Python.
 
 ## Features
 
-* [List of game features. For example:]
+* List of game features:
     * Real-time combat system
     * Open world to explore
-    * Quests and missions
-    * Character customization
+    * Quests and missions (soon)
+    * Character customization (soon)
     * Interactions with other players
+    * more soon
 
 ## Installation
 
