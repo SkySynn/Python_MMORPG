@@ -66,12 +66,12 @@ class Button:
         return self.rect.collidepoint(pos)
 
 # Créer les zones de texte
-username_box = TextBox(300, 200, 200, 30)
-password_box = TextBox(300, 250, 200, 30)
+username_box = TextBox(300, 130, 200, 30)  # Position modifiée
+password_box = TextBox(300, 230, 200, 30)  # Position modifiée
 
 # Créer les boutons
-bouton_connexion = Button(300, 300, 200, 40, gris, "Connexion")
-bouton_inscription = Button(300, 350, 200, 40, gris, "Inscription")
+bouton_connexion = Button(300, 330, 200, 40, gris, "Connexion")  # Position modifiée
+bouton_inscription = Button(300, 380, 200, 40, gris, "Inscription")  # Position modifiée
 
 # Position initiale du joueur
 x, y = 100, 100
@@ -126,12 +126,11 @@ while running:
             if bouton_connexion.cliqué(event.pos):
                 logged_in = login(username_box.texte, password_box.texte)
             elif bouton_inscription.cliqué(event.pos):
-                registered = register(username_box.texte, password_box.texte)  # Appeler la fonction register()
+                registered = register(username_box.texte, password_box.texte)
                 if registered:
                     print("Vous pouvez maintenant vous connecter.")
                 else:
                     print("L'inscription a échoué. Le nom d'utilisateur est peut-être déjà utilisé.")
-                # Tu peux ajouter ici un message à afficher à l'utilisateur
 
     # Appel de pygame.event.pump() pour traiter les événements de saisie
     pygame.event.pump()
@@ -141,10 +140,10 @@ while running:
 
     # Afficher les zones de texte et les labels
     if not logged_in:
+        afficher_texte("Nom d'utilisateur:", blanc, 300, 100)  # Position modifiée
         username_box.afficher()
+        afficher_texte("Mot de passe:", blanc, 300, 200)  # Position modifiée
         password_box.afficher()
-        afficher_texte("Nom d'utilisateur:", blanc, 150, 205)
-        afficher_texte("Mot de passe:", blanc, 150, 255)
 
         # Afficher les boutons
         bouton_connexion.afficher()
@@ -154,13 +153,13 @@ while running:
     if logged_in:
         # Gestion des touches ZQSD
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_z]: 
+        if keys[pygame.K_z]:  # Z - Haut
             y -= vitesse
-        if keys[pygame.K_s]:  
+        if keys[pygame.K_s]:  # S - Bas
             y += vitesse
-        if keys[pygame.K_q]:  
+        if keys[pygame.K_q]:  # Q - Gauche
             x -= vitesse
-        if keys[pygame.K_d]:  
+        if keys[pygame.K_d]:  # D - Droite
             x += vitesse
 
         # Envoi de la position au serveur
