@@ -46,12 +46,32 @@ class TextBox:
     def afficher(self):
         couleur = self.couleur_active if self.actif else self.couleur_inactive
         pygame.draw.rect(screen, couleur, self.rect, 2)
-        surface = font.render(self.texte, True, blanc)  # <--  Couleur du texte en blanc
+        surface = font.render(self.texte, True, blanc)  # Couleur du texte en blanc
         screen.blit(surface, (self.rect.x + 5, self.rect.y + 5))
+
+# Classe pour les boutons
+class Button:
+    def __init__(self, x, y, largeur, hauteur, couleur, texte):
+        self.rect = pygame.Rect(x, y, largeur, hauteur)
+        self.couleur = couleur
+        self.texte = texte
+
+    def afficher(self):
+        pygame.draw.rect(screen, self.couleur, self.rect)
+        surface = font.render(self.texte, True, noir)
+        text_rect = surface.get_rect(center=self.rect.center)
+        screen.blit(surface, text_rect)
+
+    def cliqué(self, pos):
+        return self.rect.collidepoint(pos)
 
 # Créer les zones de texte
 username_box = TextBox(300, 200, 200, 30)
 password_box = TextBox(300, 250, 200, 30)
+
+# Créer les boutons
+bouton_connexion = Button(300, 300, 200, 40, gris, "Connexion")
+bouton_inscription = Button(300, 350, 200, 40, gris, "Inscription")
 
 # Position initiale du joueur
 x, y = 100, 100
@@ -102,9 +122,16 @@ while running:
         username_box.gérer_événements(event)
         password_box.gérer_événements(event)
 
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_RETURN and not logged_in:  # Appuyer sur Entrée pour se connecter
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if bouton_connexion.cliqué(event.pos):
                 logged_in = login(username_box.texte, password_box.texte)
+            elif bouton_inscription.cliqué(event.pos):
+                registered = register(username_box.texte, password_box.texte)  # Appeler la fonction register()
+                if registered:
+                    print("Vous pouvez maintenant vous connecter.")
+                else:
+                    print("L'inscription a échoué. Le nom d'utilisateur est peut-être déjà utilisé.")
+                # Tu peux ajouter ici un message à afficher à l'utilisateur
 
     # Appel de pygame.event.pump() pour traiter les événements de saisie
     pygame.event.pump()
@@ -119,21 +146,21 @@ while running:
         afficher_texte("Nom d'utilisateur:", blanc, 150, 205)
         afficher_texte("Mot de passe:", blanc, 150, 255)
 
-        # Afficher les boutons (simplifiés pour l'instant)
-        afficher_texte("Connexion (appuyez sur Entrée)", blanc, 250, 300)
-        afficher_texte("Inscription (non implémentée)", gris, 250, 350)  # Inscription non implémentée pour l'instant
+        # Afficher les boutons
+        bouton_connexion.afficher()
+        bouton_inscription.afficher()
 
     # Si le joueur est connecté, afficher le jeu
     if logged_in:
         # Gestion des touches ZQSD
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_z]:  # Z - Haut
+        if keys[pygame.K_z]: 
             y -= vitesse
-        if keys[pygame.K_s]:  # S - Bas
+        if keys[pygame.K_s]:  
             y += vitesse
-        if keys[pygame.K_q]:  # Q - Gauche
+        if keys[pygame.K_q]:  
             x -= vitesse
-        if keys[pygame.K_d]:  # D - Droite
+        if keys[pygame.K_d]:  
             x += vitesse
 
         # Envoi de la position au serveur

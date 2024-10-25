@@ -21,7 +21,7 @@ def gérer_client(client_socket, addr):
             if commande == "login":
                 username, password = args
                 # Vérifier les informations d'identification dans la base de données
-                conn = sqlite3.connect('users.db')  # Remplace par le nom de ta base de données
+                conn = sqlite3.connect('users.db')
                 cursor = conn.cursor()
                 cursor.execute("SELECT password FROM users WHERE username=?", (username,))
                 resultat = cursor.fetchone()
@@ -29,7 +29,6 @@ def gérer_client(client_socket, addr):
 
                 if resultat and bcrypt.checkpw(password.encode(), resultat[0]):
                     client_socket.send("login_ok".encode())
-                    # ... (code pour ajouter le joueur à la liste des joueurs connectés)
                 else:
                     client_socket.send("login_failed".encode())
 
